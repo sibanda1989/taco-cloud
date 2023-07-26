@@ -1,7 +1,7 @@
 package tacos;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class TacoOrder implements Serializable{
 	
 	private Long id;
 	
-	private Date placedAt;
+	private Date createdAt;
 
 	@NotBlank(message = "Delivery Name is required")
 	private String deliveryName;
