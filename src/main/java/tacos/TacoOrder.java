@@ -11,11 +11,15 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Data
+@Table
 public class TacoOrder implements Serializable{
 	private static final Long serialVersionUID = 1L;
-	
+
+	@Id //designates the id property as being the identity for the TacoOrder
 	private Long id;
 	
 	private Date placedAt;
