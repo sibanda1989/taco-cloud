@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import tacos.Ingredient;
 
-@Repository //should automatically be discovered by Spring component scanning, and instantiated as a bean in the Spring application context 
+@Repository
 public class JdbcIngredientRepository implements IngredientRepository {
 	
 	private JdbcTemplate jdbcTemplate;
