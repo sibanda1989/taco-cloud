@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.transaction.annotation.Transactional;
 
+import tacos.IngredientRef;
 import tacos.Taco;
 import tacos.TacoOrder;
 
@@ -64,7 +65,7 @@ public class JdbcOrderRepository implements OrderRepository {
 
 
 
-	private long saveTaco(long orderId, int orderKey, Taco taco) {
+	private long saveTaco(Long orderId, int orderKey, Taco taco) {
 		taco.setCreatedAt(new Date());
 		PreparedStatementCreatorFactory pscf = new PreparedStatementCreatorFactory(
 				"insert into Taco " + "(name, created_at, taco_order, taco_order_key) " + "values (?, ?, ?, ?)",
@@ -78,7 +79,17 @@ public class JdbcOrderRepository implements OrderRepository {
 		taco.setId(tacoId);
 		saveIngredientRefs(tacoId, taco.getIngredients());
 		return tacoId;
-		
 	}
+	
+	 private void saveIngredientRefs(
+		      long tacoId, List<IngredientRef> ingredientRefs) {
+		    int key = 0;
+		    for (IngredientRef ingredientRef : ingredientRefs) {
+		      jdbcOperations.update(
+		          "insert into Ingredient_Ref (ingredient, taco, taco_key) "
+		          + "values (?, ?, ?)",
+		          ingredientRef.getIngredient(), tacoId, key++);
+		    }
+		  }
 
 }
